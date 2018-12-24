@@ -46,8 +46,8 @@ app.get('*', (req, res) => {
     }
 });
 
-const api1 = functions.https.onRequest(app)
+const webhook = functions.https.onRequest(app)
 
 exports = {
-    api1
+    webhook
 }
