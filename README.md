@@ -7,16 +7,23 @@ This is also a demonstration of GCP Functions capabilities along with power of C
 
 ## Deployment
 
-```gcloud beta functions deploy webhook --runtime nodejs8 --trigger-http```
+```sh
+gcloud beta functions deploy webhook --runtime nodejs8 --trigger-http
+```
 
 ## Testing
 
 ### External:
 
- ```curl -v -X POST "https://us-central1-ctrbot.cloudfunctions.net/webhook/handler?anything```
+ ```sh
+ curl -v -X POST "https://us-central1-ctrbot.cloudfunctions.net/webhook/handler?anything"
+ ```
 
 ### Local:
 
- ```curl -X POST "localhost:1337/handler"```
+ ```sh
+ node index.local.js
+ curl -X POST "localhost:1337/handler"
+ ```
 
 ## Dependencies

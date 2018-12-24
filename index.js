@@ -16,8 +16,4 @@ app.use(bodyParser.urlencoded({
 const webhook = require('./webhook');
 app.use('/handler', webhook);
 
-app.listen(1337, function () {
-    console.log('Webhook is  listening...');
-});
-
-exports.webhook = webhook
+exports.webhook = app
