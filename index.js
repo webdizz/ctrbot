@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-const webhook = require('./webhook');
+const webhook = require('./integration/webhook');
 app.use('/handler', webhook);
 
 exports.webhook = app
