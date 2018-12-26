@@ -1,7 +1,12 @@
 const
     sender = require('./output'),
     intentResolver = require('./intent'),
-    INTENTS = require('./exchange');
+    INTENTS = require('./exchange'),
+    bunyan = require('bunyan');
+
+var log = bunyan.createLogger({
+    name: 'ctrbot/messaging/input'
+});;
 
 function handleMessage(senderPSID, receivedMessage) {
 
@@ -25,11 +30,11 @@ function handleMessage(senderPSID, receivedMessage) {
     if (receivedMessage.text) {
         let intent = intentResolver.resolve(receivedMessage);
         let response;
-        console.log("Is about to handle intent: " + intent);
+        log.info("Is about to handle intent: " + intent);
         if (intent === INTENTS.GREETINGS) {
             response = genMsgTrackingProposal();
         }
-        console.log('Response is: ' + response);
+        log.info('Response is: ' + response);
         sender.respond(senderPSID, response);
     }
 }

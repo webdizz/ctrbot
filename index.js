@@ -5,8 +5,7 @@ const
     bodyParser = require('body-parser'),
     app = express(),
     cors = require("cors"),
-    path = require('path'),
-    logger = require('morgan');
+    path = require('path');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

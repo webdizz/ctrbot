@@ -1,4 +1,9 @@
-const INTENTS = require('./exchange');
+const INTENTS = require('./exchange'),
+    bunyan = require('bunyan');
+
+var log = bunyan.createLogger({
+    name: 'ctrbot/messaging/intent'
+});;
 
 function resolveIntent(receivedMessage) {
     console.log('Is about to resolve intent for message: ' + receivedMessage);

@@ -1,4 +1,10 @@
-const request = require('request');
+const request = require('request'),
+    bunyan = require('bunyan');
+
+var log = bunyan.createLogger({
+    name: 'ctrbot/messaging/output'
+});;
+
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN || "PAGE_ACCESS_TOKEN"
 
 function respond(senderPSID, response) {
@@ -20,9 +26,11 @@ function respond(senderPSID, response) {
         "json": requestBody
     }, (err, res, body) => {
         if (err) {
-            console.error("Unable to send message:" + err);
+            log.error("Unable to send message:" + err);
         } else {
-            console.log("Message sent!", body);
+            log.info({
+                body: body
+            }, "Message sent!");
         }
     })
 }

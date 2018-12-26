@@ -2,21 +2,30 @@ const
     express = require('express'),
     router = express.Router(),
     messageHandler = require('../messaging/input'),
-    postbackHandler = require('../messaging/postback');
+    postbackHandler = require('../messaging/postback'),
+    bunyan = require('bunyan');
+
+var log = bunyan.createLogger({
+    name: 'ctrbot/webhook'
+});
 
 /**
  * Handles verification calls.
  */
 router.get('*', function (req, res) {
     let VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'TOKEN';
-    console.log('token', VERIFY_TOKEN, 'requested', req.query)
+    log.info({
+        'token': VERIFY_TOKEN,
+        'requested': req.query
+    }, 'verification');
+
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
 
     if (mode && token) {
         if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-            console.debug('WEBHOOK_VERIFIED');
+            log.info('WEBHOOK_VERIFIED');
             res.status(200).send(challenge);
         } else {
             res.sendStatus(403);
