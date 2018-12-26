@@ -1,7 +1,8 @@
 const
     express = require('express'),
     router = express.Router(),
-    messageHandler = require('../messaging/input');
+    messageHandler = require('../messaging/input'),
+    postbackHandler = require('../messaging/postback');
 
 /**
  * Handles verification calls.
@@ -37,7 +38,7 @@ router.post('*', function (req, res, next) {
             if (webhookEvent.message) {
                 messageHandler.handleMessage(senderPSID, webhookEvent.message);
             } else {
-                console.log('Postback', webhookEvent.postback);
+                postbackHandler.handlePostback(senderPSID, webhookEvent.postback)
             }
         });
         res.status(200).send('EVENT_RECEIVED');

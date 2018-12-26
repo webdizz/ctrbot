@@ -6,7 +6,8 @@ function respond(senderPSID, response) {
         "recipient": {
             "id": senderPSID
         },
-        "message": response
+        "message": response,
+        "messaging_type": "RESPONSE" // can be UPDATE also to proactively update on something, there is a constrain of 24+1 policy
     }
 
     // send HTTP request to Messenger
