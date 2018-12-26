@@ -21,7 +21,7 @@ function respond(senderPSID, response) {
         if (err) {
             console.error("Unable to send message:" + err);
         } else {
-            console.log("Message sent!");
+            console.log("Message sent!", body);
         }
     })
 }

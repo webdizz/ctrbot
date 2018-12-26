@@ -39,7 +39,6 @@ router.post('*', function (req, res, next) {
             } else {
                 console.log('Postback', webhookEvent.postback);
             }
-            console.log('messaging payload', webhookEvent, 'text', webhookEvent.message);
         });
         res.status(200).send('EVENT_RECEIVED');
     } else {
