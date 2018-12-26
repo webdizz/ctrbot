@@ -8,7 +8,7 @@ This is also a demonstration of GCP Functions capabilities along with power of C
 ## Deployment
 
 ```sh
-gcloud beta functions deploy webhook --runtime nodejs8 --trigger-http
+gcloud beta functions deploy webhook --runtime nodejs8 --trigger-http --memory 128MB 
 ```
 
 ## Testing
