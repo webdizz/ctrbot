@@ -1,7 +1,11 @@
 const
     express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    messageHandler = require('../messaging/input');
 
+/**
+ * Handles verification calls.
+ */
 router.get('*', function (req, res) {
     let VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'TOKEN';
     console.log('token', VERIFY_TOKEN, 'requested', req.query)
@@ -19,14 +23,23 @@ router.get('*', function (req, res) {
     }
 });
 
+/**
+ * Handles events from Page subscription
+ */
 router.post('*', function (req, res, next) {
     let body = req.body;
 
-    console.log('event', body.entry)
     if (body.object === 'page') {
         body.entry.forEach(function (element) {
             let webhookEvent = element.messaging[0];
-            console.log('messaging payload', webhookEvent, 'text', webhookEvent.message.text);
+            let senderPSID = webhookEvent.sender.id;
+
+            if (webhookEvent.message) {
+                messageHandler.handleMessage(senderPSID, webhookEvent.message);
+            } else {
+                console.log('Postback', webhookEvent.postback);
+            }
+            console.log('messaging payload', webhookEvent, 'text', webhookEvent.message);
         });
         res.status(200).send('EVENT_RECEIVED');
     } else {
